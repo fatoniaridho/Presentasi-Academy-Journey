@@ -1,0 +1,485 @@
+<!DOCTYPE html>
+<html lang="id" class="scroll-smooth">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Dasbor | Academy Journey</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+    <style>
+        body {
+            font-family: 'Inter', sans-serif;
+            background-color: #F8F9FA;
+        }
+        .sidebar-link {
+            transition: background-color 0.2s ease, color 0.2s ease;
+        }
+        .sidebar-link.active, .sidebar-link:hover {
+            background-color: #e3f2fd;
+            color: #0d47a1;
+            font-weight: 600;
+        }
+        .main-content > section {
+            display: none;
+        }
+        .main-content > section.active {
+            display: block;
+        }
+        .chart-container {
+            position: relative;
+            height: 300px;
+            width: 100%;
+        }
+    </style>
+</head>
+<body class="antialiased text-gray-800">
+
+    <div class="flex h-screen bg-gray-100">
+        <!-- Sidebar -->
+        <aside id="sidebar" class="w-64 bg-white shadow-md flex-shrink-0 flex flex-col transition-all duration-300 -translate-x-full sm:translate-x-0">
+            <div class="p-6">
+                <h1 class="text-2xl font-bold text-[#0d47a1]">Academy Journey</h1>
+            </div>
+            <nav class="flex-grow px-4 pb-4">
+                <a href="#dashboard" class="sidebar-link flex items-center p-3 my-1 rounded-lg text-gray-600">
+                    <span class="mr-3 text-lg">🏠</span> Dasbor
+                </a>
+                <a href="#planner" class="sidebar-link flex items-center p-3 my-1 rounded-lg text-gray-600">
+                    <span class="mr-3 text-lg">🗺️</span> Academic Planner
+                </a>
+                <a href="#coach" class="sidebar-link flex items-center p-3 my-1 rounded-lg text-gray-600">
+                    <span class="mr-3 text-lg">⏱️</span> Productivity Coach
+                </a>
+                <a href="#companion" class="sidebar-link flex items-center p-3 my-1 rounded-lg text-gray-600">
+                    <span class="mr-3 text-lg">🤖</span> Course Companion
+                </a>
+                <a href="#tasks" class="sidebar-link flex items-center p-3 my-1 rounded-lg text-gray-600">
+                    <span class="mr-3 text-lg">🎯</span> Task Prioritization
+                </a>
+                <a href="#skills" class="sidebar-link flex items-center p-3 my-1 rounded-lg text-gray-600">
+                    <span class="mr-3 text-lg">📈</span> Skill & Career Tracker
+                </a>
+                <a href="#skripsi" class="sidebar-link flex items-center p-3 my-1 rounded-lg text-gray-600">
+                    <span class="mr-3 text-lg">✍️</span> Skripsi Helper
+                </a>
+                <a href="#career" class="sidebar-link flex items-center p-3 my-1 rounded-lg text-gray-600">
+                    <span class="mr-3 text-lg">💼</span> Career Tools
+                </a>
+                <a href="#tracker" class="sidebar-link flex items-center p-3 my-1 rounded-lg text-gray-600">
+                    <span class="mr-3 text-lg">🏆</span> Journey Tracker
+                </a>
+            </nav>
+            <div class="p-4 border-t">
+                <div class="flex items-center">
+                    <div class="w-10 h-10 bg-gray-200 rounded-full mr-3 flex items-center justify-center font-bold text-gray-500">ZF</div>
+                    <div>
+                        <p class="font-semibold text-sm">Zaini Febrian</p>
+                        <a href="lp.html" class="text-xs text-red-500 hover:underline">Keluar</a>
+                    </div>
+                </div>
+            </div>
+        </aside>
+
+        <!-- Main Content -->
+        <div class="flex-1 flex flex-col overflow-hidden">
+            <header class="bg-white shadow-sm p-4 flex justify-between items-center">
+                 <button id="menu-toggle" class="sm:hidden text-2xl text-gray-600">☰</button>
+                 <h2 id="page-title" class="text-xl font-bold text-gray-800">Dasbor</h2>
+                 <div>
+                    <button class="text-xl text-gray-500 hover:text-gray-800">🔔</button>
+                 </div>
+            </header>
+            
+            <main class="flex-1 overflow-x-hidden overflow-y-auto bg-gray-100 p-6 sm:p-8 main-content">
+                
+                <!-- 1. Beranda / Dashboard -->
+                <section id="dashboard" class="active">
+                    <div class="grid grid-cols-1 lg:grid-cols-3 gap-8">
+                        <div class="lg:col-span-2">
+                            <div class="bg-white p-6 rounded-xl shadow-md">
+                                <h3 class="text-lg font-bold mb-1">Selamat Datang Kembali, Zaini!</h3>
+                                <p class="text-gray-500 mb-4">Berikut ringkasan cepat perjalanan akademikmu.</p>
+                                <div class="w-full bg-gray-200 rounded-full h-4 mb-2"><div class="bg-blue-600 h-4 rounded-full" style="width: 66%;"></div></div>
+                                <p class="text-sm text-gray-600">Progres Studi: <strong class="text-gray-800">95 / 144 SKS</strong></p>
+                            </div>
+                            <div class="bg-yellow-50 border-l-4 border-yellow-400 text-yellow-800 p-4 rounded-r-lg my-6 shadow-sm">
+                                <p class="font-bold">Notifikasi Penting:</p>
+                                <ul class="list-disc list-inside text-sm mt-1">
+                                    <li>Deadline Laporan Proyek RPL <strong>3 hari lagi!</strong></li>
+                                    <li>Jadwal bimbingan dengan Prof. Budi dijadwalkan ulang ke Jumat, 10:00.</li>
+                                </ul>
+                            </div>
+                            <div class="bg-white p-6 rounded-xl shadow-md">
+                                <h3 class="font-bold mb-4">Akses Cepat</h3>
+                                <div class="grid grid-cols-2 md:grid-cols-3 gap-4">
+                                    <a href="#planner" class="nav-quick-link bg-blue-50 text-blue-800 p-4 rounded-lg text-center font-semibold hover:bg-blue-100">🗺️ Rencana Akademik</a>
+                                    <a href="#skripsi" class="nav-quick-link bg-green-50 text-green-800 p-4 rounded-lg text-center font-semibold hover:bg-green-100">✍️ Bantuan Skripsi</a>
+                                    <a href="#career" class="nav-quick-link bg-purple-50 text-purple-800 p-4 rounded-lg text-center font-semibold hover:bg-purple-100">💼 Alat Karir</a>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="bg-white p-6 rounded-xl shadow-md">
+                            <h3 class="font-bold mb-4">Tugas Mendatang</h3>
+                            <div class="space-y-4 text-sm">
+                                <div class="p-3 bg-red-50 rounded-md">
+                                    <p class="font-semibold">Laporan Proyek RPL</p>
+                                    <p class="text-xs text-red-600 font-bold">Deadline: 29 Sep 2025</p>
+                                </div>
+                                <div class="p-3 bg-yellow-50 rounded-md">
+                                    <p class="font-semibold">Presentasi Jaringan Komputer</p>
+                                    <p class="text-xs text-gray-500">Deadline: 5 Okt 2025</p>
+                                </div>
+                                <div class="p-3 bg-green-50 rounded-md">
+                                    <p class="font-semibold">Kuis Sistem Operasi</p>
+                                    <p class="text-xs text-gray-500">Deadline: 12 Okt 2025</p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </section>
+
+                <!-- 2. Academic Planner -->
+                <section id="planner">
+                     <div class="bg-white p-6 rounded-xl shadow-md">
+                         <h3 class="text-xl font-bold mb-6">Perencanaan Akademik</h3>
+                         <div class="grid lg:grid-cols-2 gap-8">
+                            <div>
+                                <h4 class="font-semibold mb-2">Tracking Mata Kuliah</h4>
+                                <p class="text-sm text-gray-500 mb-4">Total <strong>35 dari 50</strong> mata kuliah wajib & pilihan telah diselesaikan.</p>
+                                <div class="space-y-2 text-sm">
+                                    <div class="flex justify-between items-center bg-gray-50 p-3 rounded"><span>Kalkulus I</span><span class="font-bold text-green-600">✓ Lulus</span></div>
+                                    <div class="flex justify-between items-center bg-gray-50 p-3 rounded"><span>Struktur Data</span><span class="font-bold text-green-600">✓ Lulus</span></div>
+                                    <div class="flex justify-between items-center bg-blue-50 p-3 rounded"><span>Jaringan Komputer</span><span class="font-bold text-blue-600">→ Diambil</span></div>
+                                </div>
+                            </div>
+                            <div>
+                                <h4 class="font-semibold mb-2">KRS Simulator (Semester 6)</h4>
+                                <p class="text-sm text-gray-500 mb-4">Pilih mata kuliah untuk melihat beban SKS dan prasyarat.</p>
+                                <div class="space-y-2 border p-4 rounded-lg">
+                                    <label class="flex items-center"><input type="checkbox" checked class="mr-2">Proyek Perangkat Lunak (6 SKS)</label>
+                                    <label class="flex items-center"><input type="checkbox" checked class="mr-2">Manajemen Proyek TI (3 SKS)</label>
+                                    <label class="flex items-center"><input type="checkbox" class="mr-2">Keamanan Informasi (3 SKS)</label>
+                                </div>
+                                <div class="mt-4 bg-gray-100 p-3 rounded text-center">
+                                    <p>Total Dipilih: <strong class="text-lg">12 SKS</strong> (Beban Sedang)</p>
+                                    <p class="text-xs text-green-600 mt-1">Semua prasyarat terpenuhi.</p>
+                                    <p class="text-xs mt-2">Prediksi Kelulusan: <strong>Semester 8 (Tepat Waktu)</strong></p>
+                                </div>
+                            </div>
+                         </div>
+                     </div>
+                </section>
+
+                <!-- 3. Productivity Coach -->
+                <section id="coach">
+                    <div class="bg-white p-6 rounded-xl shadow-md">
+                         <h3 class="text-xl font-bold mb-6">Productivity Coach</h3>
+                         <div class="grid lg:grid-cols-3 gap-8">
+                            <div class="lg:col-span-2">
+                                <h4 class="font-semibold mb-4">Kalender Akademik</h4>
+                                <!-- Kalender Mockup -->
+                                <div class="grid grid-cols-7 gap-1 text-center text-sm">
+                                    <div class="font-bold">Sen</div><div class="font-bold">Sel</div><div class="font-bold">Rab</div><div class="font-bold">Kam</div><div class="font-bold">Jum</div><div class="font-bold">Sab</div><div class="font-bold">Min</div>
+                                    <div class="border h-20 p-1">29<p class="text-xs bg-red-100 text-red-700 rounded-md">Deadline RPL</p></div>
+                                    <div class="border h-20 p-1">30</div>
+                                    <div class="border h-20 p-1">1</div><div class="border h-20 p-1">2</div><div class="border h-20 p-1">3</div><div class="border h-20 p-1">4</div>
+                                    <div class="border h-20 p-1">5<p class="text-xs bg-yellow-100 text-yellow-700 rounded-md">Presentasi</p></div>
+                                </div>
+                            </div>
+                            <div>
+                                <h4 class="font-semibold mb-4">Sesi Belajar</h4>
+                                <div class="bg-blue-50 p-6 rounded-lg text-center">
+                                    <p class="text-5xl font-bold">25:00</p>
+                                    <p class="mb-4">Mode: Pomodoro</p>
+                                    <button class="bg-blue-600 text-white px-6 py-2 rounded-full font-semibold">Mulai Fokus</button>
+                                </div>
+                                <div class="mt-4">
+                                    <h5 class="font-semibold text-sm mb-2">Rekomendasi Jadwal AI</h5>
+                                    <p class="text-xs bg-gray-100 p-2 rounded"><strong>19:00 - 20:30:</strong> Belajar Jaringan Komputer untuk presentasi.</p>
+                                </div>
+                            </div>
+                         </div>
+                    </div>
+                </section>
+
+                <!-- 4. Course Companion -->
+                <section id="companion">
+                     <div class="bg-white p-6 rounded-xl shadow-md">
+                         <h3 class="text-xl font-bold mb-2">Asisten Mata Kuliah</h3>
+                         <select class="mb-6 p-2 border rounded-md">
+                            <option>Kecerdasan Buatan (TIF1005)</option>
+                            <option>Jaringan Komputer (TIF1002)</option>
+                         </select>
+                         <div class="border rounded-lg p-4">
+                            <h4 class="font-semibold mb-4">Q&A Chat dengan AI</h4>
+                            <div class="h-64 overflow-y-auto bg-gray-50 p-3 rounded-md space-y-3 text-sm">
+                                <div class="flex justify-end"><p class="bg-blue-600 text-white p-3 rounded-lg max-w-xs">Jelaskan perbedaan antara supervised dan unsupervised learning?</p></div>
+                                <div class="flex justify-start"><p class="bg-gray-200 text-gray-800 p-3 rounded-lg max-w-xs">Tentu! <strong>Supervised learning</strong> belajar dari data yang sudah diberi label, sedangkan <strong>unsupervised learning</strong> mencari pola dari data yang tidak berlabel.</p></div>
+                            </div>
+                            <div class="mt-4 flex">
+                                <input type="text" placeholder="Tanya apa saja tentang materi ini..." class="flex-grow p-2 border rounded-l-md">
+                                <button class="bg-blue-600 text-white px-4 rounded-r-md">Kirim</button>
+                            </div>
+                         </div>
+                     </div>
+                </section>
+
+                <!-- 5. Task Prioritization -->
+                <section id="tasks">
+                     <div class="bg-white p-6 rounded-xl shadow-md">
+                         <h3 class="text-xl font-bold mb-6">Prioritas Tugas</h3>
+                         <div class="grid md:grid-cols-3 gap-6">
+                            <!-- To Do -->
+                            <div>
+                                <h4 class="font-bold mb-3 text-center">Tugas Baru</h4>
+                                <div class="space-y-3">
+                                    <div class="bg-gray-100 p-4 rounded-lg shadow-sm">
+                                        <p class="font-semibold">Kuis Sistem Operasi</p>
+                                        <p class="text-xs text-gray-500">Deadline: 12 Okt</p>
+                                        <span class="text-xs bg-green-200 text-green-800 px-2 py-0.5 rounded-full">Prioritas Rendah</span>
+                                    </div>
+                                </div>
+                            </div>
+                             <!-- In Progress -->
+                            <div>
+                                <h4 class="font-bold mb-3 text-center">Dikerjakan</h4>
+                                <div class="space-y-3">
+                                    <div class="bg-gray-100 p-4 rounded-lg shadow-sm">
+                                        <p class="font-semibold">Presentasi Jaringan Komputer</p>
+                                        <p class="text-xs text-gray-500">Deadline: 5 Okt</p>
+                                        <span class="text-xs bg-yellow-200 text-yellow-800 px-2 py-0.5 rounded-full">Prioritas Sedang</span>
+                                    </div>
+                                </div>
+                            </div>
+                             <!-- Done -->
+                            <div>
+                                <h4 class="font-bold mb-3 text-center">Prioritas Utama (AI)</h4>
+                                <div class="space-y-3">
+                                     <div class="bg-red-100 border border-red-300 p-4 rounded-lg shadow-sm">
+                                        <p class="font-semibold">Laporan Proyek RPL</p>
+                                        <p class="text-xs text-red-600 font-bold">Deadline: 29 Sep</p>
+                                        <span class="text-xs bg-red-200 text-red-800 px-2 py-0.5 rounded-full">Kerjakan Sekarang!</span>
+                                    </div>
+                                </div>
+                            </div>
+                         </div>
+                     </div>
+                </section>
+
+                <!-- 6. Skill & Career Tracker -->
+                <section id="skills">
+                     <div class="bg-white p-6 rounded-xl shadow-md">
+                         <h3 class="text-xl font-bold mb-6">Pelacak Skill & Karir</h3>
+                         <div class="grid lg:grid-cols-2 gap-8">
+                            <div>
+                                <h4 class="font-semibold mb-4">Peta Skill Anda</h4>
+                                <div class="chart-container"><canvas id="skillTrackerChart"></canvas></div>
+                            </div>
+                            <div>
+                                <h4 class="font-semibold mb-4">Rekomendasi Skill Tambahan</h4>
+                                <div class="bg-gray-50 p-4 rounded-lg">
+                                    <p class="font-bold">Belajar Python untuk Analisis Data</p>
+                                    <p class="text-sm text-gray-600 mb-2">Skill ini akan melengkapi keahlian Programming Anda.</p>
+                                    <a href="#" class="text-sm text-blue-600 hover:underline">Lihat kursus di Coursera →</a>
+                                </div>
+                                <h4 class="font-semibold my-4">Portofolio & Sertifikasi</h4>
+                                <div class="space-y-2 text-sm">
+                                    <p class="p-3 bg-gray-50 rounded"><strong>Proyek:</strong> Sistem Manajemen Perpustakaan (RPL)</p>
+                                    <p class="p-3 bg-gray-50 rounded"><strong>Sertifikat:</strong> Google IT Support Professional</p>
+                                </div>
+                            </div>
+                         </div>
+                     </div>
+                </section>
+
+                <!-- 7. Skripsi Helper -->
+                <section id="skripsi">
+                     <div class="bg-white p-6 rounded-xl shadow-md">
+                         <h3 class="text-xl font-bold mb-6">Asisten Skripsi</h3>
+                         <div class="mb-6">
+                            <h4 class="font-semibold">Timeline Progres</h4>
+                            <div class="w-full bg-gray-200 rounded-full h-2.5 mt-2">
+                                <div class="bg-blue-600 h-2.5 rounded-full" style="width: 45%"></div>
+                            </div>
+                            <p class="text-xs text-center mt-1">Fase Saat Ini: Seminar Proposal</p>
+                         </div>
+                         <div class="grid md:grid-cols-2 gap-8">
+                             <div>
+                                <h4 class="font-semibold mb-4">AI Writing Assistant</h4>
+                                <textarea class="w-full h-40 p-2 border rounded-md text-sm" placeholder="Tulis atau tempel paragraf Anda di sini untuk cek grammar, parafrase, atau generate sitasi..."></textarea>
+                                <button class="bg-blue-600 text-white px-4 py-2 mt-2 rounded-md font-semibold">Proses Teks</button>
+                             </div>
+                              <div>
+                                <h4 class="font-semibold mb-4">Generator Outline (Bab 1-5)</h4>
+                                <p class="text-sm text-gray-600 mb-2">Masukkan judul skripsi Anda untuk mendapatkan draf outline.</p>
+                                <input type="text" value="Sistem Deteksi Hoax dengan NLP" class="w-full p-2 border rounded-md text-sm">
+                                <button class="bg-gray-200 text-gray-800 px-4 py-2 mt-2 rounded-md font-semibold">Buat Outline</button>
+                             </div>
+                         </div>
+                     </div>
+                </section>
+
+                <!-- 8. Career Tools -->
+                <section id="career">
+                     <div class="bg-white p-6 rounded-xl shadow-md">
+                         <h3 class="text-xl font-bold mb-6">Peralatan Karir</h3>
+                         <div class="grid md:grid-cols-2 lg:grid-cols-3 gap-6">
+                            <div class="bg-gray-50 p-6 rounded-lg text-center border">
+                                <p class="text-4xl mb-4">📄</p>
+                                <h4 class="font-bold">CV Builder (AI-Powered)</h4>
+                                <p class="text-sm text-gray-600 my-2">Buat CV ATS-friendly dalam hitungan menit.</p>
+                                <button class="w-full bg-blue-600 text-white py-2 rounded-lg font-semibold">Buat CV</button>
+                            </div>
+                            <div class="bg-gray-50 p-6 rounded-lg text-center border">
+                                <p class="text-4xl mb-4">🎙️</p>
+                                <h4 class="font-bold">Mock Interview</h4>
+                                <p class="text-sm text-gray-600 my-2">Latihan wawancara dengan AI dan dapatkan feedback.</p>
+                                <button class="w-full bg-blue-600 text-white py-2 rounded-lg font-semibold">Mulai Latihan</button>
+                            </div>
+                             <div class="bg-gray-50 p-6 rounded-lg text-center border">
+                                <p class="text-4xl mb-4">🤝</p>
+                                <h4 class="font-bold">Job Matching</h4>
+                                <p class="text-sm text-gray-600 my-2">Temukan lowongan yang cocok dengan skill Anda.</p>
+                                <button class="w-full bg-blue-600 text-white py-2 rounded-lg font-semibold">Cari Lowongan</button>
+                            </div>
+                         </div>
+                     </div>
+                </section>
+
+                <!-- 9. Journey Tracker -->
+                <section id="tracker">
+                    <div class="bg-white p-6 rounded-xl shadow-md">
+                         <h3 class="text-xl font-bold mb-6">Pelacak Perjalanan</h3>
+                         <div class="grid lg:grid-cols-3 gap-8">
+                             <div class="lg:col-span-2">
+                                <h4 class="font-semibold mb-4">Timeline Akademik</h4>
+                                <!-- Mockup Timeline -->
+                                <div class="relative border-l-2 border-blue-200 ml-4">
+                                    <div class="mb-8 ml-8">
+                                        <span class="absolute -left-4 flex items-center justify-center w-8 h-8 bg-blue-600 rounded-full text-white">1</span>
+                                        <h5 class="font-bold">Semester 1-2: Fondasi</h5>
+                                        <p class="text-sm text-gray-600">Menyelesaikan mata kuliah dasar.</p>
+                                    </div>
+                                     <div class="mb-8 ml-8">
+                                        <span class="absolute -left-4 flex items-center justify-center w-8 h-8 bg-blue-600 rounded-full text-white">3</span>
+                                        <h5 class="font-bold">Semester 3-4: Penjurusan</h5>
+                                        <p class="text-sm text-gray-600">Mengambil mata kuliah pilihan dan memulai proyek kecil.</p>
+                                    </div>
+                                    <div class="mb-8 ml-8">
+                                        <span class="absolute -left-4 flex items-center justify-center w-8 h-8 bg-gray-300 rounded-full">5</span>
+                                        <h5 class="font-bold text-gray-400">Semester 5-6: Mendalam</h5>
+                                    </div>
+                                </div>
+                             </div>
+                             <div>
+                                <h4 class="font-semibold mb-4">Lencana Pencapaian</h4>
+                                <div class="grid grid-cols-3 gap-4 text-center">
+                                    <div class="p-2 bg-gray-100 rounded-lg"><p class="text-4xl" title="Rajin Belajar">📚</p><p class="text-xs">Rajin Belajar</p></div>
+                                    <div class="p-2 bg-gray-100 rounded-lg"><p class="text-4xl" title="Tugas Tepat Waktu">🎯</p><p class="text-xs">Tepat Waktu</p></div>
+                                    <div class="p-2 bg-gray-100 rounded-lg"><p class="text-4xl" title="IPK Sempurna">⭐</p><p class="text-xs">IPK Sempurna</p></div>
+                                </div>
+                             </div>
+                         </div>
+                     </div>
+                </section>
+
+            </main>
+        </div>
+    </div>
+
+<script>
+document.addEventListener('DOMContentLoaded', function () {
+    const sidebar = document.getElementById('sidebar');
+    const menuToggle = document.getElementById('menu-toggle');
+    menuToggle.addEventListener('click', () => {
+        sidebar.classList.toggle('-translate-x-full');
+    });
+
+    const links = document.querySelectorAll('.sidebar-link, .nav-quick-link');
+    const sections = document.querySelectorAll('.main-content > section');
+    const pageTitle = document.getElementById('page-title');
+
+    function updateActiveState(targetId) {
+        let activeTitle = 'Dasbor';
+        
+        links.forEach(link => {
+            if (link.getAttribute('href') === `#${targetId}`) {
+                link.classList.add('active');
+                if (link.classList.contains('sidebar-link')) {
+                   activeTitle = link.innerText.replace(/^[^\w]+/, '').trim();
+                }
+            } else {
+                link.classList.remove('active');
+            }
+        });
+
+        sections.forEach(section => {
+            if (section.id === targetId) {
+                section.classList.add('active');
+            } else {
+                section.classList.remove('active');
+            }
+        });
+
+        pageTitle.innerText = activeTitle;
+        // Close sidebar on mobile after navigation
+        if (window.innerWidth < 640) {
+            sidebar.classList.add('-translate-x-full');
+        }
+    }
+
+    links.forEach(link => {
+        link.addEventListener('click', function(e) {
+            e.preventDefault();
+            const targetId = this.getAttribute('href').substring(1);
+            window.location.hash = targetId;
+            updateActiveState(targetId);
+        });
+    });
+
+    // Initial load
+    const initialTarget = window.location.hash ? window.location.hash.substring(1) : 'dashboard';
+    updateActiveState(initialTarget);
+    
+    // Chart.js: Skill Tracker Chart
+    const skillTrackerCtx = document.getElementById('skillTrackerChart');
+    if (skillTrackerCtx) {
+        new Chart(skillTrackerCtx, {
+            type: 'radar',
+            data: {
+                labels: ['Programming', 'Analisis Data', 'Manajemen Proyek', 'Komunikasi', 'Desain UI/UX'],
+                datasets: [{
+                    label: 'Level Skill Anda',
+                    data: [85, 70, 60, 75, 50],
+                    fill: true,
+                    backgroundColor: 'rgba(25, 118, 210, 0.2)',
+                    borderColor: '#1976d2',
+                    pointBackgroundColor: '#1976d2'
+                }]
+            },
+            options: {
+                responsive: true,
+                maintainAspectRatio: false,
+                plugins: { legend: { display: false } },
+                scales: {
+                    r: {
+                        angleLines: { color: 'rgba(0, 0, 0, 0.1)' },
+                        grid: { color: 'rgba(0, 0, 0, 0.1)' },
+                        pointLabels: { font: { size: 11 } },
+                        suggestedMin: 0,
+                        suggestedMax: 100
+                    }
+                }
+            }
+        });
+    }
+});
+</script>
+
+</body>
+</html>
+
+
